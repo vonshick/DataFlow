@@ -7,13 +7,12 @@ library(keras)
 library(tictoc)
 
 evalutate_model <- function(model, test_x, test_y) {
-  cat("\n ### Model evaluation ###\n")
+  cat("\n\n\n Model evaluation \n")
   model %>% 
     evaluate(
       x = test_x,
       y = test_y
     )
-  cat("\n\n")
 }
 
 # Creating a baseline model predicting that the price will be equal 
@@ -124,8 +123,6 @@ prepare_dl_model <- function() {
   normalized <- normalize_data(train_x, test_x)
   
   trained_model <- train_model(normalized$train_x, train_y)
-  
-  print(trained_model$results)
   
   evalutate_model(trained_model$model, normalized$test_x, test_y)
   
