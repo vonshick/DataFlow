@@ -1,0 +1,21 @@
+- hosts: aws_instance
+  remote_user: vonshick
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Install pip
+      apt: name=python-pip state=present
+    - name: Install docker-py package
+      pip: name=docker-py
+
+    - name: Build Docker image from Dockerfile
+      docker_image:
+        name: airbnb_dl
+        path: playbook_dir
+        state: build
+        
+    # - name: Running the container
+    #   docker_container:
+    #     image: airbnb_dl:latest
+    #     path: docker
+    #     state: running

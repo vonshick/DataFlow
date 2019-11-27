@@ -16,15 +16,6 @@ RUN python3 -m venv ${PYTHON_VENV_PATH}
 
 ENV PATH ${PYTHON_VENV_PATH}/bin:${PATH}
 
-## And set ENV for R! It doesn't read from the environment...
-RUN echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron && \
-    echo "WORKON_HOME=${WORKON_HOME}" >> /usr/local/lib/R/etc/Renviron && \
-    echo "RETICULATE_PYTHON_ENV=${PYTHON_VENV_PATH}" >> /usr/local/lib/R/etc/Renviron
-
-## Because reticulate hardwires these PATHs...
-RUN ln -s ${PYTHON_VENV_PATH}/bin/pip /usr/local/bin/pip && \
-    ln -s ${PYTHON_VENV_PATH}/bin/virtualenv /usr/local/bin/virtualenv
-
 RUN pip3 install \
     h5py==2.9.0 \
     pyyaml==3.13 \
@@ -36,7 +27,7 @@ RUN pip3 install \
     --no-cache-dir
 
 USER root
-RUN install2.r reticulate tensorflow keras caret tidyverse
+RUN install2.r tensorflow keras caret tidyverse
 
 ENV MODEL_DIRECTORY /home/airbnb_dl_model
 RUN mkdir ${MODEL_DIRECTORY}
