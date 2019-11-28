@@ -1,5 +1,5 @@
 # DataFlow
-Keras neural network deployed on AWS with Ansible and Docker.
+Keras neural network deployed on Azure with Ansible and Docker.
 
 To deploy script with ansible 
 1. Pass the IP address in **host** file.
