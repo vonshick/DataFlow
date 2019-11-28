@@ -29,7 +29,7 @@ RUN pip3 install \
 USER root
 RUN install2.r tensorflow keras caret tidyverse
 
-ENV MODEL_DIRECTORY /home/airbnb_dl_model
+ENV MODEL_DIRECTORY /etc/airbnb_dl_model
 RUN mkdir ${MODEL_DIRECTORY}
 COPY airbnb_dl_model ${MODEL_DIRECTORY}
 

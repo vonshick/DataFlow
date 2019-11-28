@@ -11,7 +11,7 @@ Trained model is saved on a machine after running the docker image.
 
 To deploy script with Ansible 
 1. Pass the IP address in **host** file.
-2. Change username in **main.yml**.
+2. Change **username** variable in **main.yml**.
 3. Run following command:
 
 ```

@@ -1,21 +1,23 @@
 - hosts: aws_instance
-  remote_user: vonshick
+  vars:
+    username: pass_your_username_here
+  remote_user: "{{username}}"
   become: yes
   become_method: sudo
   tasks:
-    - name: Install pip
-      apt: name=python-pip state=present
-    - name: Install docker-py package
-      pip: name=docker-py
-
+    - name: Copy airbnb_dl_model directory 
+      copy:
+        src: airbnb_dl_model
+        dest: "/home/{{username}}"
+    
+    - name: Copy Dockerfile 
+      copy:
+        src: Dockerfile
+        dest: "/home/{{username}}"
+        directory_mode: yes
+    
     - name: Build Docker image from Dockerfile
-      docker_image:
-        name: airbnb_dl
-        path: playbook_dir
-        state: build
+      command: "docker build -t airbnb_dl /home/{{username}}/"
         
-    # - name: Running the container
-    #   docker_container:
-    #     image: airbnb_dl:latest
-    #     path: docker
-    #     state: running
+    - name: Running the container
+      command: "docker run -v /home/{{username}}/airbnb_dl_model:/etc/airbnb_dl_model airbnb_dl"
